@@ -9,8 +9,8 @@ import pandas as pd
 from sklearn.cluster import KMeans
 from collections import Counter
 
-def kmeansAlgo(dataset):
-    
+def kmeansAlgo(dataset,nn):
+        
     lentghDataSet = len(dataset.index)
     lentghDataSet = lentghDataSet -1
     #print(lentghDataSet)
@@ -21,6 +21,10 @@ def kmeansAlgo(dataset):
     #descriptive statistics of the dataset
     #dataset.describe().transpose()
     
+    print("alog k-means nombre clusteur = ",nn)
+    print(type(nn))
+    nn=int(nn)
+    print(type(nn))
     
     X = dataset.iloc[:,0:19].values
     
@@ -40,9 +44,9 @@ def kmeansAlgo(dataset):
     #plt.show()
     
     #Fitting K-Means to the dataset
-     
-    
-    kmeans = KMeans(n_clusters = 20, init = 'k-means++', random_state = 0)
+	
+	#n_clusters = nbreCluster
+    kmeans = KMeans(n_clusters= nn, init = 'k-means++', random_state = 0)
     #
     y_kmeans = kmeans.fit_predict(X)
     
@@ -149,11 +153,13 @@ def kmeansAlgo(dataset):
     
     
     df = pd.DataFrame.from_dict(d, orient='index').reset_index()
+    listeFinl=[]
+    listeFinl=df
     #print(df)
     
     #print()
     j=0
     while (j<5):
-        #print(df.loc[j])
+        print(df.loc[j])
         j=j+1
-    return df
+    return listeFinl

@@ -12,7 +12,7 @@ import csv
 
 
 def location():
-    location = location = r'C:\Users\M.Dhia\Desktop\Terminal\DataSet\DataSetCSV.csv'
+    location = location = r'C:\Users\M.Dhia\Desktop\Final\DataSet\DataSetCSV.csv'
     return location
   
   
