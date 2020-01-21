@@ -21,11 +21,11 @@ import os
 #==================================VARIABLES==========================================
 
 root =Tk()
-root.title("Systeme de Recommandation de Cours")
+root.title("Système de Recommandation de Cours")
 root.resizable(False, False)
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
-width = 900
+width = 1300
 height = 500
 x = (screen_width/2) - (width/2)
 y = (screen_height/2) - (height/2)
@@ -51,7 +51,7 @@ def noneFunc():
 def readFromTxt():
     file_name=variable1.get()
     if(file_name ==""):
-        msg3="\n4 : Vous Devez cliquer sur le button PARCOURIR et inserer le fichier des notes de l etudiant cible \n \n"
+        msg3="\n \n \n      4 : Vous Devez cliquer sur le button PARCOURIR et inserer le fichier des notes de l etudiant cible."
         T.insert(END, msg3)        
     else:
         counter=0
@@ -64,17 +64,17 @@ def readFromTxt():
             if(counter>=20):
                 location=excel.location()
                 excel.addLine(location, listOfNotes)
-                T.insert(END, "\n4 : Insertion Des Notes Effectuer Avec Succes \n \n") 
+                T.insert(END, "\n \n \n      4 : Insertion Des Notes Effectuer Avec Succes") 
             else:
-                msg3="\n4 : Insertion Des Notes Effectuer Avec Succes \n \n \n5 : Cliquer Sur le button RECOMMANDATION KNN ou bien RECOMMANDATION K-MEANS "
+                msg3="\n \n \n      4 : Insertion Des Notes Effectuer Avec Succes \n \n \n5 : Cliquer Sur le button RECOMMANDATION KNN ou bien RECOMMANDATION K-MEANS."
                 T.insert(END, msg3)   
           
 def algoKnn():
     if(variable1.get()==""):
-        msg3="\n4 : Vous Devez Inserer le fichier input de l Etudiant cible \n \n "
+        msg3="\n\n \n      4 : Vous Devez Inserer le fichier input de l Etudiant cible."
         T.insert(END, msg3)
     else:
-        msg3="\n \n \nRECOMMANDATION PAR KNN : \n \n"
+        msg3="\n \n \n      RECOMMANDATION PAR KNN :"
         T.insert(END, msg3)
         print("URL FILE KNN "+excel.location())
         dataset = excel.readCSV(excel.location())
@@ -94,14 +94,14 @@ def algoKmeans():
         tt=int(v.get())
     print("tt",tt)
     if (tt==-1):
-        msg4="\n \n \nImpossible De Tourner l'algorithme : Vous Dever verifier le Nombre de cluster K. "
+        msg4="\n \n \n      4 : Impossible De Tourner l'algorithme : Vous Dever verifier le Nombre de cluster K. "
         T.insert(END, msg4)
         print("impossible")
     elif(tt<=1):
-        msg4 = "\n \n \nVous devez entrer un nombre de clusteur supérieur à 1 "
+        msg4 = "\n \n \n      Vous devez entrer un nombre de clusteur supérieur à 1 "
         T.insert(END, msg4)
     else:
-        msg3="\n \n \nRECOMMANDATION PAR K-MEANS : \n \n"
+        msg3="\n \n \n      RECOMMANDATION PAR K-MEANS :"
         T.insert(END, msg3)
         j=0
         list_results=[]
@@ -142,25 +142,67 @@ Left.pack(side=LEFT)
 Buttons = Frame(Top, width=900, height=50, bd=0, relief="raise",padx=10,pady=10)
 Buttons.pack(side=BOTTOM)
 
+Buttons1 = Frame(Buttons, width=900, height=50, bd=1, relief="raise",padx=15,pady=10)
+Buttons1.pack(side=LEFT, padx=6)
+
+
+Buttons2 = Frame(Buttons, width=900, height=50, bd=1, relief="raise",padx=15,pady=10)
+Buttons2.pack(side=LEFT, padx=6)
+
+Buttons3 = Frame(Buttons, width=900, height=50, bd=1, relief="raise",padx=15,pady=10)
+Buttons3.pack(side=LEFT, padx=6)
+
 #==================================BUTTONS AND LABEL WIDGET=====================================
-btn_browser = Button(Buttons, width=10, text="Parcourir", command=askOpenFileName)
+
+label=Label(Buttons1, width= 30, text = "Entrée Des Données : ",font='Helvetica 14 bold' ,padx=5,pady=6)
+label.pack(side=TOP)
+
+btn_browser = Button(Buttons1, width=10, text="Parcourir", command=askOpenFileName)
 btn_browser.pack(side=LEFT)
 
-input_file=Entry(Buttons, width=30, textvariable=variable1)
+x=Label(Buttons1, width= 2, text = "")
+x.pack(side=LEFT)
+
+input_file=Entry(Buttons1, width=30, textvariable=variable1)
 input_file.pack(side=LEFT)
 
-btn_note = Button(Buttons, width=10, text="Insert", command=readFromTxt)
+x=Label(Buttons1, width= 2, text = "")
+x.pack(side=LEFT)
+
+btn_note = Button(Buttons1, width=10, text="Insert", command=readFromTxt)
 btn_note.pack(side=LEFT)
 
-btn_knnn = Button(Buttons, width=25, text="Recommandation Par KNN", command=algoKnn)
+
+
+label=Label(Buttons2, width= 30, text = "Recommandation Par KNN : ",font='Helvetica 14 bold' ,padx=5,pady=6)
+label.pack(side=TOP)
+
+btn_knnn = Button(Buttons2, width=25, text="ALGORITHME  KNN", command=algoKnn)
 btn_knnn.pack(side=LEFT)
 
+label=Label(Buttons2, width= 14, text = "N Neighbors : ")
+label.pack(side=LEFT)
 
-label=Label(Buttons, width= 7, text = "k : ")
+vv = StringVar()
+nbrCluster=Entry(Buttons2, width=5,textvariable=vv)
+nbrCluster.pack(side=LEFT)
+
+
+
+#x=Label(Buttons, width= 8, text = "")
+#x.pack(side=LEFT)
+
+label=Label(Buttons3, width= 30, text = "Recommandation Par K-MEANS : ",font='Helvetica 14 bold' ,padx=5,pady=6)
+label.pack(side=TOP)
+
+btn_kmins = Button(Buttons3, width=25, text="ALGORITHME K-MEANS", command=algoKmeans)
+btn_kmins.pack(side=LEFT)
+
+label=Label(Buttons3, width= 12, text = "N Clusters : ")
 label.pack(side=LEFT)
 
 v = StringVar()
-nbrCluster=Entry(Buttons, width=5,textvariable=v)
+nbrCluster=Entry(Buttons3, width=5,textvariable=v)
 nbrCluster.pack(side=LEFT)
 
 
@@ -168,22 +210,15 @@ nbrCluster.pack(side=LEFT)
 
 
 
-x=Label(Buttons, width= 3, text = "")
-x.pack(side=LEFT)
-
-btn_kmins = Button(Buttons, width=25, text="Recommandation Par KMEANS", command=algoKmeans)
-btn_kmins.pack(side=LEFT)
-
-
 
 
 S = Scrollbar(Left)
-T = Text(Left, height=450, width=900)
+T = Text(Left, height=450, width=900, font='Helvetica 10 bold')
 S.pack(side=RIGHT, fill=Y)
 T.pack(side=LEFT, fill=Y)
 S.config(command=T.yview)
-T.config(yscrollcommand=S.set)
-msg=msg+"--------------------------------------- BIENVENUE --------------------------------------- \n \n -------------------------- SYSTEME DE RECOMMANDATION DE COURS --------------------------   \n   "+"\n \n \n"+"1 : Pour Commencer Vous Devez cliquer sur le boutton PARCOURIR \n "+"\n"+"\n"+"2 : Importer le fichier qui contien la liste des notes de etudiant cible \n \n \n3 : cliquer sur Insertion. \n\n"
+T.config(yscrollcommand=S.set,)
+msg=msg+"\n-------------------------------------------------------------------------------------------------------------------------------------------------- BIENVENUE -------------------------------------------------------------------------------------------------------------------------------------------------------- \n \n \n---------------------------------------------------------------------------------------------------------------------------- SYSTEME DE RECOMMANDATION DE COURS ---------------------------------------------------------------------------------------------------------------------------   \n   "+"\n \n"+"      1 : Pour Commencer Vous Devez cliquer sur le boutton PARCOURIR \n "+"\n"+"\n"+"      2 : Importer le fichier qui contien la liste des notes de etudiant cible \n \n \n      3 : cliquer sur Insertion."
 T.insert(END, msg)
 
 
