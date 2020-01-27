@@ -35,6 +35,7 @@ msg=""
 listOfNotes=[]
 dataset=""
 tt=0
+tt=0
 #============================== Functions==============================================
 
 def askOpenFileName():
@@ -66,19 +67,28 @@ def readFromTxt():
                 excel.addLine(location, listOfNotes)
                 T.insert(END, "\n \n \n      4 : Insertion Des Notes Effectuer Avec Succes") 
             else:
-                msg3="\n \n \n      4 : Insertion Des Notes Effectuer Avec Succes \n \n \n5 : Cliquer Sur le button RECOMMANDATION KNN ou bien RECOMMANDATION K-MEANS."
+                msg3="\n \n \n      4 : Insertion Des Notes Effectuer Avec Succes \n \n \n      5 : Cliquer Sur le button RECOMMANDATION KNN ou bien RECOMMANDATION K-MEANS."
                 T.insert(END, msg3)   
           
 def algoKnn():
-    if(variable1.get()==""):
-        msg3="\n\n \n      4 : Vous Devez Inserer le fichier input de l Etudiant cible."
-        T.insert(END, msg3)
+    if(vv.get()==""):
+        ttt=-1
     else:
-        msg3="\n \n \n      RECOMMANDATION PAR KNN :"
+        ttt=int(vv.get())
+    print("ttt",ttt)
+    if (ttt==-1):
+        msg4="\n \n \n      4 : Impossible De Tourner l'algorithme : Vous Dever verifier le Neighbors. "
+        T.insert(END, msg4)
+        print("impossible")
+    elif(ttt<=1):
+        msg4 = "\n \n \n      Vous devez entrer un nombre Neighbors supérieur à 1 "
+        T.insert(END, msg4)
+    else:
+        msg3="\n \n \n      RECOMMANDATION PAR KNN :\n \n \n"
         T.insert(END, msg3)
         print("URL FILE KNN "+excel.location())
         dataset = excel.readCSV(excel.location())
-        list_result=knn.knnAlgo(dataset)
+        list_result=knn.knnAlgo(dataset,ttt)
         for i in range(len(list_result)):
             T.insert(END,list_result[i]+"\n")       
         excel.dropLastLine(dataset,excel.location())

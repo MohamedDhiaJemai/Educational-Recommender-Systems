@@ -9,7 +9,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.neighbors import NearestNeighbors
 
 
-def knnAlgo(dataset):
+def knnAlgo(dataset,nn):
     
     #Length of our Dataframe
     lentghDataSet = len(dataset.index)
@@ -19,7 +19,7 @@ def knnAlgo(dataset):
     norm_data = MinMaxScaler() #initialisation
     X = norm_data.fit_transform(X)
     
-    nbrs = NearestNeighbors(n_neighbors=2, algorithm='ball_tree').fit(X)
+    nbrs = NearestNeighbors(n_neighbors=nn, algorithm='ball_tree').fit(X)
     
     distances, indices = nbrs.kneighbors(X)
     
